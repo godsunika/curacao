@@ -20,11 +20,11 @@ model menus {
 model permission_role {
   permission_id Int
   role_id       Int
+  permissions   permissions @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+  roles         roles       @relation(fields: [role_id], references: [id], onDelete: Cascade)
   read_permit   Boolean     @default(false)
   write_permit  Boolean     @default(false)
   modify_permit Boolean     @default(false)
-  permissions   permissions @relation(fields: [permission_id], references: [id], onDelete: Cascade)
-  roles         roles       @relation(fields: [role_id], references: [id], onDelete: Cascade)
 
   @@id([permission_id, role_id])
 }
@@ -64,7 +64,7 @@ model roles {
 model users {
   id                     Int                     @id @default(autoincrement())
   uid                    String                  @db.Uuid
-  username               String                  @unique @db.VarChar(191)
+  username               String                  @db.VarChar(191)
   name                   String                  @db.VarChar(191)
   sex                    String                  @db.VarChar(191)
   email                  String                  @unique @db.VarChar(191)

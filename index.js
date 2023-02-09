@@ -4,8 +4,7 @@ import express from 'express';
 import winston from 'winston';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import signIn from './src/routes/signIn.js';
-import signUp from './src/routes/signUp.js';
+import authRoutes from './app/routes/auth.routes.js';
 
 dotenv.config();
 
@@ -36,8 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
-app.use('/api/signin', signIn);
-app.use('/api/signup', signUp);
+authRoutes(app);
 
 const port = process.env.PORT || 3000;
 
